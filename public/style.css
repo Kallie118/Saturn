@@ -1,8 +1,7 @@
 @media screen and (max-width:700px) {
-    .post-data {
-      float: none;
-      clear: both;
-      width: 90vw;
+    .footer-icons {
+      width: 0px;
+      display: none;
     }
     .hidden {
         display: none;
@@ -12,10 +11,8 @@
     }
   }
   @media screen and (min-width:700px) {
-    .post-data {
-      float: left;
-      width: 23%;
-      min-width: 300px;
+    .footer-icons {
+      display: block;
     }
     .hidden {
         display: block;
@@ -28,27 +25,37 @@
  
 .footer {
     position: fixed;
-    height: 10vh;
-    background-color: #262626;
+    background-color: #263d55;
     bottom: 0;
+    clear: both;
+    float: none;
     color: white;
     width: 100vw;
+    height: 9em;
+    padding-left: 3vw;
+    padding-top: 2em;
 }
 .blank-div {
-    height: 11vh;
-    float: none;
-    clear: both;
-}
-.post-data {
-   
-    height: 15rem;
-    float: left;
-    margin: 10px;
-}
-.breadcrumb {
+    position: relative;
+    height: 9em;
     width: 100vw;
-    margin-left: 0px;
-
+    clear: both;
+    float: none;
+}
+.footer-icon {
+    width: 5em;
+    height: 5em;
+    opacity: 0.4;
+    margin-right: 2em;
+    transition: 1s;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+}
+.footer-icon:hover {
+    opacity: 1;
+    transition: 1s;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
 }
 
 .login {
