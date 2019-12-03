@@ -69,7 +69,7 @@ class Navbar extends React.Component {
                                 </li>
 
                                 <li class="nav-item dropdown show">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" >{email}</a>
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" >{name}</a>
                                     <div class="dropdown-menu " x-placement="bottom-start">
                                         <a class="dropdown-item" href="#">Profile</a>
                                         <a class="dropdown-item" onClick={() => { this.handleLogout() }}>Logout</a>
