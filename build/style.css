@@ -1,0 +1,91 @@
+@media screen and (max-width:700px) {
+    .post-data {
+      float: none;
+      clear: both;
+      width: 90vw;
+    }
+    .hidden {
+        display: none;
+    }
+    .login-holder {
+        padding-top: 0;
+    }
+  }
+  @media screen and (min-width:700px) {
+    .post-data {
+      float: left;
+      width: 23%;
+      min-width: 300px;
+    }
+    .hidden {
+        display: block;
+    }
+    .login-holder {
+        padding-top: 15vh;
+    }
+  }
+
+ 
+.footer {
+    position: fixed;
+    height: 10vh;
+    background-color: #262626;
+    bottom: 0;
+    color: white;
+    width: 100vw;
+}
+.blank-div {
+    height: 11vh;
+    float: none;
+    clear: both;
+}
+.post-data {
+   
+    height: 15rem;
+    float: left;
+    margin: 10px;
+}
+.breadcrumb {
+    width: 100vw;
+    margin-left: 0px;
+
+}
+
+.login {
+    height: 70vh;
+    width: 100vw;
+    margin-left: 0px;
+}
+.login-splash {
+    background-image: url('images/login.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 80%;
+}
+.card-center {
+    margin-left: auto;
+    margin-right: auto;
+    float: none; /* Added */
+}
+.fullLength {
+    width: 90%;
+}
+.btn-white {
+    background-color: #4582EC;
+    border: 1px solid white;
+    color: white;
+}
+.btn-white:hover {
+    background-color: white;
+    color: #4582EC;
+}
+.btn-white:active {
+    background-color: lightgray;
+    color: #4582EC;
+}
+.white-link {
+    color: white;
+}
+.white-link:hover {
+    color: white;
+}
