@@ -68,9 +68,12 @@ class Navbar extends React.Component {
                                 <li className="nav-item">
                                     <Link to="/dashboard" className="nav-link">Dashboard</Link>
                                 </li>
+                            </ul>
 
+                            <ul className="navbar-nav ml-auto nav-profile-holder">
                                 <li class="nav-item dropdown show">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" >{name}</a>
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                                        <img src={photoUrl} alt="Profile Image" height="30px" /> {name}</a>
                                     <div class="dropdown-menu " x-placement="bottom-start">
                                         <Link to="/profile" className="dropdown-item">Profile</Link>
                                         <a class="dropdown-item" onClick={() => { this.handleLogout() }}>Logout</a>

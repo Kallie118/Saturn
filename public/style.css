@@ -57,6 +57,9 @@
     -webkit-transition: 1s;
     -moz-transition: 1s;
 }
+.nav-profile-holder {
+    margin-right: 30px;
+}
 
 .login {
     height: 70vh;
@@ -76,23 +79,4 @@
 }
 .fullLength {
     width: 90%;
-}
-.btn-white {
-    background-color: #4582EC;
-    border: 1px solid white;
-    color: white;
-}
-.btn-white:hover {
-    background-color: white;
-    color: #4582EC;
-}
-.btn-white:active {
-    background-color: lightgray;
-    color: #4582EC;
-}
-.white-link {
-    color: white;
-}
-.white-link:hover {
-    color: white;
 }

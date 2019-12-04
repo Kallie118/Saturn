@@ -48,7 +48,8 @@ class Register extends React.Component {
                     firebase.auth().onAuthStateChanged((user) => {
                     if (user) {
                         user.updateProfile({
-                            displayName: this.state.username,
+                            photoURL: "images/default-profile.png",
+                            displayName: this.state.username
                         })
                         .then(() => {
                             this.setState({ pause: false })
