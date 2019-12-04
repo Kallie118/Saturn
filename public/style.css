@@ -6,6 +6,24 @@
     .hidden {
         display: none;
     }
+    .mobile-card { 
+        width: 80%;
+    }
+    .list-group-item {
+        width: 100%;
+    }
+    .dashboard-mainboard {
+        max-width: 96%;
+    }
+    .dashboard-right-sidebar-spacer {
+        display: none;
+    }
+    .dashboard-right-sidebar {
+        position: relative;
+        width: auto;
+        width: 100%;
+        
+    }
     .login-holder {
         padding-top: 0;
     }
@@ -17,12 +35,35 @@
     .hidden {
         display: block;
     }
+    .mobile-card { 
+        width: auto;
+    }
+    .list-group-item {
+        width: auto;
+    }
+    .dashboard-mainboard {
+        max-width: auto;
+    }
+    .dashboard-right-sidebar-spacer {
+        display: block;
+    }
+    .dashboard-right-sidebar {
+        position: fixed;
+        width: 25vw;
+        right: 0px;
+    }
     .login-holder {
         padding-top: 15vh;
     }
   }
 
- 
+  /*disable horizontal scroll */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+ /* Footer stuff here */
 .footer {
     position: fixed;
     background-color: #263d55;
@@ -30,14 +71,14 @@
     clear: both;
     float: none;
     color: white;
-    width: 100vw;
+    width: 100%;
     height: 9em;
     padding-left: 3vw;
     padding-top: 2em;
 }
 .blank-div {
     position: relative;
-    height: 9em;
+    height: 10em;
     width: 100vw;
     clear: both;
     float: none;
@@ -57,10 +98,31 @@
     -webkit-transition: 1s;
     -moz-transition: 1s;
 }
+
+/* Navbar stuff here*/
+.navbar {
+    border-bottom: 1px solid black;
+}
 .nav-profile-holder {
     margin-right: 30px;
 }
+.nav-spacer {
+    height: 80px;
+    width: 100%;
+    position: relative;
+    float: none;
+    clear: both;
+}
 
+/* Dashboard stuff here */
+.dashboard-right-sidebar {
+    margin-right: 10px;
+    padding-top: 10px;
+}
+.dashboard-mainboard {
+   
+    margin: 10px;
+}
 .login {
     height: 70vh;
     width: 100vw;
@@ -72,11 +134,8 @@
     background-position: center center;
     background-size: 80%;
 }
-.card-center {
+.div-center {
     margin-left: auto;
     margin-right: auto;
     float: none; /* Added */
-}
-.fullLength {
-    width: 90%;
 }

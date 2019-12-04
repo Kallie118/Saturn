@@ -74,9 +74,7 @@ class Home extends React.Component {
         } else if (this.state.loggedIn === false) {
             return (
                 <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item active">Home</li>
-                    </ol>
+                    
 
                     <div className="row login">
                         <div className="col-md-7 login-splash">

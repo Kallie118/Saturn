@@ -57,35 +57,35 @@ class Navbar extends React.Component {
         if (this.state.loggedIn === true) {
             return (
                 <Router>
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a className="navbar-brand" href="/"><img src="images/logo.png" alt="Brand Logo" height="40px" /> <b>Saturn</b></a>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
+                    <div>
+                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                            <a className="navbar-brand" href="/"><img src="images/logo.png" alt="Brand Logo" height="40px" /> <b>Saturn</b></a>
+                            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
 
-                        <div className="collapse navbar-collapse" id="navbarColor03">
-                            <ul className="navbar-nav mr-auto">
-                                <li className="nav-item">
-                                    <Link to="/dashboard" className="nav-link">Dashboard</Link>
-                                </li>
-                            </ul>
+                            <div className="collapse navbar-collapse" id="navbarColor03">
+                                <ul className="navbar-nav mr-auto">
+                                    <li className="nav-item">
+                                        <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                                    </li>
+                                </ul>
 
-                            <ul className="navbar-nav ml-auto nav-profile-holder">
-                                <li class="nav-item dropdown show">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-                                        <img src={photoUrl} alt="Profile Image" height="30px" /> {name}</a>
-                                    <div class="dropdown-menu " x-placement="bottom-start">
-                                        <Link to="/profile" className="dropdown-item">Profile</Link>
-                                        <a class="dropdown-item" onClick={() => { this.handleLogout() }}>Logout</a>
-                                    </div>
-                                </li>
-                            </ul>
-
-
+                                <ul className="navbar-nav ml-auto nav-profile-holder">
+                                    <li class="nav-item dropdown show">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                                            <img src={photoUrl} alt="Profile Image" height="30px" /> {name}</a>
+                                        <div class="dropdown-menu " x-placement="bottom-start">
+                                            <Link to="/profile" className="dropdown-item">Profile</Link>
+                                            <a class="dropdown-item" onClick={() => { this.handleLogout() }}>Logout</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <div className="nav-spacer">
                         </div>
-
-
-                    </nav>
+                    </div>
 
                     {/* A <Switch> looks through its children <Route>s and
                     renders the first one that matches the current URL. */}
@@ -97,27 +97,31 @@ class Navbar extends React.Component {
                     </Switch>
                 </Router>
             )
-            
+
         } else if (this.state.loggedIn === false) {
             return (
                 <Router>
-                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <a className="navbar-brand" href="/"><img src="images/logo.png" alt="Brand Logo" height="40px" /> <b>Saturn</b></a>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
+                    <div>
+                        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                            <a className="navbar-brand" href="/"><img src="images/logo.png" alt="Brand Logo" height="40px" /> <b>Saturn</b></a>
+                            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
 
-                        <div className="collapse navbar-collapse" id="navbarColor03">
-                            <ul className="navbar-nav mr-auto">
-                                <li className="nav-item">
-                                    <Link to="/" className="nav-link">Home</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/register" className="nav-link">Register</Link>
-                                </li>
-                            </ul>
+                            <div className="collapse navbar-collapse" id="navbarColor03">
+                                <ul className="navbar-nav mr-auto">
+                                    <li className="nav-item">
+                                        <Link to="/" className="nav-link">Home</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link to="/register" className="nav-link">Register</Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <div className="nav-spacer">
                         </div>
-                    </nav>
+                    </div>
 
                     {/* A <Switch> looks through its children <Route>s and
                         renders the first one that matches the current URL. */}

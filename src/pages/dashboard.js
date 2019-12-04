@@ -26,13 +26,65 @@ class Dashboard extends React.Component {
         if (this.state.loggedIn === true) {
             return (
                 <div>
-                    <h1>You are on the dashboard</h1>
+                    <div className="row">
+                        <div className="col dashboard-mainboard">
+                        <div className="jumbotron div-center">
+                               test <br /> <br /> <br /> test
+                           </div>
+                           <div className="jumbotron div-center">
+                               test <br /> <br /> <br /> test
+                           </div>
+                           <div className="jumbotron div-center">
+                               test <br /> <br /> <br /> test
+                           </div>
+                           <div className="jumbotron div-center">
+                               test <br /> <br /> <br /> test
+                           </div>
+                           <div className="jumbotron div-center">
+                               test <br /> <br /> <br /> test
+                           </div>
+                        </div>
+                        <div className="col-3 dashboard-right-sidebar-spacer">
+
+                        </div>
+                        <div className="col-sm dashboard-right-sidebar">
+                            <div class="list-group mobile-card div-center">
+                                <a href="#" class="list-group-item list-group-item-action text-center disabled">
+                                    <b>Popular Forums:</b>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    Cars
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    Billionaire Lifestyle
+                                </a>
+                            </div>
+                            <br />
+                            <div class="list-group mobile-card div-center">
+                                <a href="#" class="list-group-item list-group-item-action text-center disabled">
+                                    <b>Forums you follow:</b>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    Money Insider
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    Fake news
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    Home Imporovement
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    Memes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-             )
+            )
         } else if (this.state.loggedIn === false) {
             console.log('YOU WERENT LOGGED IN')
             return <Redirect to='/' />
-            
+
         } else {
             return null;
         }

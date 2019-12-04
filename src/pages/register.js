@@ -117,11 +117,6 @@ class Register extends React.Component {
         if (this.state.loggedIn === false) {
             return (
                 <div>
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="/">Home</a></li>
-                        <li className="breadcrumb-item active">Register</li>
-
-                    </ol>
 
                     <div className="col-sm">
                         <br />  <br />
