@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from 'firebase';
 import { Redirect } from 'react-router-dom'
+import db from '../config/firebase';
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -20,18 +21,22 @@ class Dashboard extends React.Component {
                 this.setState({ loggedIn: true });
                 this.setState({ user: firebase.auth().currentUser });
 
-                db.collection('users').doc(user.displayName).get().then(doc => {
-                    if (doc.exists) {
-                        this.setState({ userData: doc.data() });
-                        this.setState({ loading: false })
-                    } else {
-                        console.log('Document does not exist.');
-                    }
-                });
+                this.updateUserData();
 
             } else {
                 this.setState({ loggedIn: false });
                 this.setState({ loading: false })
+            }
+        });
+    }
+
+    updateUserData = () => {
+        db.collection('users').doc(this.state.user.displayName).get().then(doc => {
+            if (doc.exists) {
+                this.setState({ userData: doc.data() });
+                this.setState({ loading: false })
+            } else {
+                alert('Error getting user data please reload.')
             }
         });
     }

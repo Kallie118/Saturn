@@ -28,14 +28,7 @@ class Dashboard extends React.Component {
                     this.setState({ loggedIn: true });
                     this.setState({ user: firebase.auth().currentUser });
 
-                    db.collection('users').doc(user.displayName).get().then(doc => {
-                        if (doc.exists) {
-                            this.setState({ userData: doc.data() });
-                            this.setState({ loading: false })
-                        } else {
-                            console.log('Document does not exist.');
-                        }
-                    });
+                    this.updateUserData();
 
                 } else {
                     this.setState({ loggedIn: false });
@@ -50,6 +43,28 @@ class Dashboard extends React.Component {
         }
     }
 
+    updateUserData = () => {
+        db.collection('users').doc(this.state.user.displayName).get().then(doc => {
+            if (doc.exists) {
+                this.setState({ userData: doc.data() });
+                this.setState({ loading: false })
+            } else {
+                alert('Error getting user data please reload.')
+            }
+        });
+    }
+
+    hidePopup = () => {
+        db.collection("users").doc(this.state.user.displayName).set({
+            new_user: false
+        }).then(() => {
+            this.updateUserData();
+        })
+        .catch((error) => {
+            alert(error)
+        });
+    }
+
 
 
     render() {
@@ -58,7 +73,7 @@ class Dashboard extends React.Component {
             return (
                 <Redirect to='/' />
             )
-            
+
         }
 
         const POPULAR_DATA = this.state.popularData.map((data, index) => {
@@ -69,20 +84,47 @@ class Dashboard extends React.Component {
             )
         })
 
+        const NEW_USER_POPUP = () => {
+
+            if (this.state.userData.new_user) {
+                return (<div className="popup-holder">
+                    <div className="jumbotron dashboard-newuser-popup text-center">
+                        <h3>Welcome to Saturn!</h3>
+                      
+                        <hr />
+                        <div className="row">
+                            <div className="col dashboard-newuser-popup-selection">
+                                <img src="images/create-forum.png" height="100px" alt="Create Forum" />
+                                <h5>Create a forum!</h5>
+                                <hr />
+
+                                <p>&nbsp; Create and lead your own custom forum! Invite your friends and grow your own community. </p>
+                            </div>
+
+                            <div className="col dashboard-newuser-popup-selection">
+                            <img src="images/join-forum.png" height="100px" alt="Join Forum" />
+                                <h5>Find a forum!</h5>
+                                <hr />
+
+                                <p>Explore all the forums Saturn has to offer. Check out the forums we have recommended for you!</p>
+                            </div>
+                        </div>
+
+                        <button onClick={ this.hidePopup }>Don't show me this.</button>
+
+                    </div>
+                </div>
+                )
+            }
+        }
 
         if (this.state.loading === true) {
             return null
         } else if (this.state.loggedIn === true) {
             return (
                 <div>
+                    {NEW_USER_POPUP()}
 
-
-                    <div className="popup-holder">
-                        <div className="jumbotron dashboard-newuser-popup">
-                            test <br /> <br /> <br /> test
-                                </div>
-
-                    </div>
 
                     <div className="row">
                         <div className="col dashboard-mainboard">
