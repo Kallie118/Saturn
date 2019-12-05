@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from 'firebase';
 import { Redirect } from 'react-router-dom'
+import db from '../config/firebase';
 
 class Register extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class Register extends React.Component {
             } else {
                 this.setState({ loggedIn: false })
             }
-        });
+        })
     }
 
 
@@ -33,7 +34,11 @@ class Register extends React.Component {
 
 
         if (this.state.password !== this.state.cpassword) {
-            this.setState({ error: 'Your passwords did not match' })
+            this.setState({ error: 'Your passwords did not match.' });
+        } else if (this.state.username.length > 15) {
+            this.setState({ error: 'Your username can not be longer then 15 characters.' });
+        } else if (this.state.username.match("^[A-Za-z0-9]+$") === null) {
+            this.setState({ error: 'Your username can only contain letters and numbers.' });
         } else {
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch((error) => {
             })
@@ -45,39 +50,37 @@ class Register extends React.Component {
                     })
                 })
                 .then(() => {
-                    firebase.auth().onAuthStateChanged((user) => {
-                    if (user) {
-                        user.updateProfile({
-                            photoURL: "images/default-profile.png",
-                            displayName: this.state.username
+                    //Update user info in database
+                    db.collection("users").doc(this.state.username).set({
+                        new_user: true,
+                    })
+                        .then((docRef) => {
+                            //Assuming it was written to database we will begin to start.
+                            firebase.auth().onAuthStateChanged((user) => {
+                                if (user) {
+                                    user.updateProfile({
+                                        photoURL: "images/default-profile.png",
+                                        displayName: this.state.username
+                                    })
+                                    .then(() => {
+                                        this.setState({ pause: false })
+                                    })
+                                    .catch((error) => {
+                                        this.setState({ error: error })
+                                    });
+                                }
+                                });
                         })
-                        .then(() => {
-                            this.setState({ pause: false })
-                        })
-                        .catch((error) => {
-                            console.log(error.message);
+                        .catch(function (error) {
+                            alert('An error has occured. Please try again later.');
+                            console.error("Error adding document: ", error);
                         });
-                    }
-                    });
+
                 })
                 .catch((error) => {
                     this.setState({ error: error.message });
                     console.log(error.code, error.message);
                 });
-
-            // db.collection("Users").add({
-            //     Username: this.dUsername.current.value,
-            //     Password: md5(this.dCPassword.current.value),
-            //     Email: this.dEmail.current.value
-            // })
-            //     .then(function (docRef) {
-
-            //         console.log("Document written with ID: ", docRef.id);
-            //     })
-            //     .catch(function (error) {
-            //         alert('An error has occured. Please try again later.');
-            //         console.error("Error adding document: ", error);
-            //     });
         }
 
 

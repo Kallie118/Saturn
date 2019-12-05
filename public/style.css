@@ -72,6 +72,19 @@ html, body {
     box-shadow: 0px 0px 7px #000;
 }
 
+.popup-holder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    background-image: url('images/popup-background.png');
+    background-repeat: repeat;
+    z-index: 10;
+    display: none;
+}
+
  /* Footer stuff here */
 .footer {
     position: absolute;
@@ -111,6 +124,7 @@ html, body {
 /* Navbar stuff here*/
 .navbar {
     border-bottom: 1px solid black;
+    z-index: 5;
 }
 .nav-profile-holder {
     margin-right: 30px;
@@ -129,9 +143,18 @@ html, body {
     padding-top: 10px;
 }
 .dashboard-mainboard {
-   
     margin: 10px;
 }
+
+.dashboard-newuser-popup {
+    margin: auto;
+    position: absolute;
+    width: 50%;
+    height: 50vh;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+
+/*login stuff here*/
 .login {
     height: 70vh;
     width: 100vw;
