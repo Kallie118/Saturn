@@ -52,11 +52,12 @@ class Profile extends React.Component {
                 <div>
                     <div className="container">
                         <div className="row profile-padding">
-                            <div className="col-2 text-right">
+                            <div className="col-2 text-center profile-picture-holder">
                                 <img src={this.state.user.photoURL} className="profile-profile-picture" alt="Profile Pic" />
+                                <p>{this.state.user.displayName}</p>
                             </div>
-                            <div className="col-8">
-                                <div className="jumbotron">
+                            <div className="col">
+                                <div className="jumbotron profile-holder">
                                     test
                                 </div>
                             </div>
