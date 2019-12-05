@@ -13,7 +13,7 @@ class Register extends React.Component {
             password: '',
             cpassword: '',
             username: '',
-            pause: null,
+            proceed: null,
             loggedIn: null,
         }
     }
@@ -40,11 +40,9 @@ class Register extends React.Component {
         } else if (this.state.username.match("^[A-Za-z0-9]+$") === null) {
             this.setState({ error: 'Your username can only contain letters and numbers.' });
         } else {
+            this.setState({ proceed: false });
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch((error) => {
             })
-                .then(() => {
-                    this.setState({ pause: false })
-                })
                 .then(() => {
                     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch((error) => {
                     })
@@ -53,6 +51,8 @@ class Register extends React.Component {
                     //Update user info in database
                     db.collection("users").doc(this.state.username).set({
                         new_user: true,
+                        email: this.state.email,
+                        
                     })
                         .then((docRef) => {
                             //Assuming it was written to database we will begin to start.
@@ -63,7 +63,7 @@ class Register extends React.Component {
                                         displayName: this.state.username
                                     })
                                     .then(() => {
-                                        this.setState({ pause: false })
+                                        this.setState({ proceed: true })
                                     })
                                     .catch((error) => {
                                         this.setState({ error: error })
@@ -146,8 +146,14 @@ class Register extends React.Component {
                     </div>
                 </div>
             )
-        } else if (this.state.loggedIn === true & this.state.pause === false) {
-            return <Redirect to="/dashboard" />
+        } else if (this.state.loggedIn === true && this.state.proceed === true) {
+            return <Redirect to={{
+                pathname: '/dashboard',
+                state: { from: 'register' }
+            }} />
+        } else if (this.state.loggedIn === true && this.state.proceed === null) {
+            return <Redirect to='/dashboard' />
+        
         } else {
             return null;
         }

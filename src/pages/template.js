@@ -31,6 +31,7 @@ class Dashboard extends React.Component {
 
             } else {
                 this.setState({ loggedIn: false });
+                this.setState({ loading: false })
             }
         });
     }

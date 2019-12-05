@@ -14,38 +14,52 @@ class Dashboard extends React.Component {
             popularData: [],
             user: {},
             userData: {},
+            reload: false,
         }
     }
 
     componentDidMount = () => {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({ loggedIn: true });
-                this.setState({ user: firebase.auth().currentUser });
+        if (this.props.location.state && this.props.location.state.from === 'register') {
+            this.setState({ reload: true })
 
-                db.collection('users').doc(user.displayName).get().then(doc => {
-                    if (doc.exists) {
-                        this.setState({ userData: doc.data() });
-                        this.setState({ loading: false })
-                    } else {
-                        console.log('Document does not exist.');
-                    }
-                });
+        } else {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    this.setState({ loggedIn: true });
+                    this.setState({ user: firebase.auth().currentUser });
 
-            } else {
-                this.setState({ loggedIn: false });
-            }
-        });
+                    db.collection('users').doc(user.displayName).get().then(doc => {
+                        if (doc.exists) {
+                            this.setState({ userData: doc.data() });
+                            this.setState({ loading: false })
+                        } else {
+                            console.log('Document does not exist.');
+                        }
+                    });
 
-        //get popular data
-        db.collection('popular').get().then(data => {
-            this.setState({ popularData: data.docs });
-        });
+                } else {
+                    this.setState({ loggedIn: false });
+                    this.setState({ loading: false })
+                }
+            });
+
+            //get popular data
+            db.collection('popular').get().then(data => {
+                this.setState({ popularData: data.docs });
+            });
+        }
     }
 
 
 
     render() {
+        if (this.state.reload) {
+            window.location.reload();
+            return (
+                <Redirect to='/' />
+            )
+            
+        }
 
         const POPULAR_DATA = this.state.popularData.map((data, index) => {
             return (
@@ -62,8 +76,8 @@ class Dashboard extends React.Component {
             return (
                 <div>
 
-                    <div className="popup-holder">
 
+                    <div className="popup-holder">
                         <div className="jumbotron dashboard-newuser-popup">
                             test <br /> <br /> <br /> test
                                 </div>
@@ -113,7 +127,7 @@ class Dashboard extends React.Component {
                                 <a className="list-group-item list-group-item-action">
                                     Fake news
                                 </a>
-                                <a  className="list-group-item list-group-item-action">
+                                <a className="list-group-item list-group-item-action">
                                     Home Imporovement
                                 </a>
                                 <a className="list-group-item list-group-item-action">
@@ -125,7 +139,6 @@ class Dashboard extends React.Component {
                 </div >
             )
         } else if (this.state.loggedIn === false) {
-            console.log('YOU WERENT LOGGED IN')
             return <Redirect to='/' />
 
         } else {
