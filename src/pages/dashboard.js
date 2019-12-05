@@ -49,7 +49,7 @@ class Dashboard extends React.Component {
 
         const POPULAR_DATA = this.state.popularData.map((data, index) => {
             return (
-                <a href="#" key={index} className="list-group-item list-group-item-action">
+                <a key={index} className="list-group-item list-group-item-action">
                     {data.id}
                 </a>
             )
@@ -96,27 +96,27 @@ class Dashboard extends React.Component {
 
                         </div>
                         <div className="col-sm dashboard-right-sidebar">
-                            <div class="list-group mobile-card div-center">
-                                <a href="#" class="list-group-item list-group-item-action text-center disabled">
+                            <div className="list-group mobile-card div-center">
+                                <a className="list-group-item list-group-item-action text-center disabled">
                                     <b>Popular Forums:</b>
                                 </a>
                                 {POPULAR_DATA}
                             </div>
                             <br />
-                            <div class="list-group mobile-card div-center">
-                                <a href="#" className="list-group-item list-group-item-action text-center disabled">
+                            <div className="list-group mobile-card div-center">
+                                <a className="list-group-item list-group-item-action text-center disabled">
                                     <b>Forums you follow:</b>
                                 </a>
-                                <a href="#" className="list-group-item list-group-item-action">
+                                <a className="list-group-item list-group-item-action">
                                     Money Insider
                                 </a>
-                                <a href="#" className="list-group-item list-group-item-action">
+                                <a className="list-group-item list-group-item-action">
                                     Fake news
                                 </a>
-                                <a href="#" className="list-group-item list-group-item-action">
+                                <a  className="list-group-item list-group-item-action">
                                     Home Imporovement
                                 </a>
-                                <a href="#" className="list-group-item list-group-item-action">
+                                <a className="list-group-item list-group-item-action">
                                     Memes
                                 </a>
                             </div>

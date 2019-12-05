@@ -1,6 +1,5 @@
 import React from 'react';
 import firebase from 'firebase';
-import db from '../config/firebase';
 import { Redirect } from 'react-router-dom'
 
 class Home extends React.Component {

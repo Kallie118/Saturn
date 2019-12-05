@@ -42,14 +42,13 @@ class Navbar extends React.Component {
 
     render() {
         let user = firebase.auth().currentUser;
-        let name, email, photoUrl, uid, emailVerified;
+        let name, photoUrl
 
         if (user != null) {
             name = user.displayName
-            email = user.email;
             photoUrl = user.photoURL;
-            emailVerified = user.emailVerified;
-            uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+        
+            // uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
             // this value to authenticate with your backend server, if
             // you have one. Use User.getToken() instead.
         }
@@ -72,12 +71,12 @@ class Navbar extends React.Component {
                                 </ul>
 
                                 <ul className="navbar-nav ml-auto nav-profile-holder">
-                                    <li class="nav-item dropdown show">
-                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                                    <li className="nav-item dropdown show">
+                                        <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
                                             <img src={photoUrl} alt="Profile Image" height="30px" /> {name}</a>
-                                        <div class="dropdown-menu " x-placement="bottom-start">
+                                        <div className="dropdown-menu " x-placement="bottom-start">
                                             <Link to="/profile" className="dropdown-item">Profile</Link>
-                                            <a class="dropdown-item" onClick={() => { this.handleLogout() }}>Logout</a>
+                                            <a className="dropdown-item" onClick={() => { this.handleLogout() }}>Logout</a>
                                         </div>
                                     </li>
                                 </ul>
