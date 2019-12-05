@@ -52,6 +52,7 @@ class Register extends React.Component {
                     db.collection("users").doc(this.state.username).set({
                         new_user: true,
                         email: this.state.email,
+                        forums: 0,
                         
                     })
                         .then((docRef) => {

@@ -7,8 +7,9 @@ import {
 } from "react-router-dom";
 import Register from './register';
 import Home from './home';
-import Dashboard from './dashboard.js';
-import Profile from './profile.js';
+import Dashboard from './dashboard';
+import Profile from './profile';
+import MyForums from './myforums';
 import firebase from 'firebase';
 
 
@@ -68,12 +69,15 @@ class Navbar extends React.Component {
                                     <li className="nav-item">
                                         <Link to="/dashboard" className="nav-link">Dashboard</Link>
                                     </li>
+                                    <li className="nav-item">
+                                        <Link to="/myforums" className="nav-link">My forums</Link>
+                                    </li>
                                 </ul>
 
                                 <ul className="navbar-nav ml-auto nav-profile-holder">
                                     <li className="nav-item dropdown show">
                                         <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-                                            <img src={photoUrl} alt="Profile Image" height="30px" /> {name}</a>
+                                            <img src={photoUrl} alt="Profile Image" className="nav-profile-picture"  /> {name}</a>
                                         <div className="dropdown-menu " x-placement="bottom-start">
                                             <Link to="/profile" className="dropdown-item">Profile</Link>
                                             <a className="dropdown-item" onClick={() => { this.handleLogout() }}>Logout</a>
@@ -90,6 +94,7 @@ class Navbar extends React.Component {
                     renders the first one that matches the current URL. */}
                     <Switch>
                         <Route path="/profile" component={Profile} />
+                        <Route path="/myforums" component={MyForums} />
                         <Route path="/dashboard" component={Dashboard} />
                         <Route path="/register" component={Register} />
                         <Route path="/" component={Home} />

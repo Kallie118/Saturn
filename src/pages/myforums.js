@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import { Redirect } from 'react-router-dom'
 import db from '../config/firebase';
 
-class Profile extends React.Component {
+class MyForums extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,18 +50,7 @@ class Profile extends React.Component {
 
                 // Your code goes below this
                 <div>
-                    <div className="container">
-                        <div className="row profile-padding">
-                            <div className="col-2 text-right">
-                                <img src={this.state.user.photoURL} className="profile-profile-picture" alt="Profile Pic" />
-                            </div>
-                            <div className="col-8">
-                                <div className="jumbotron">
-                                    test
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h1>You are on my forums</h1>
                 </div>
                 //and above this
             )
@@ -74,4 +63,4 @@ class Profile extends React.Component {
 
 }
 
-export default Profile;
+export default MyForums;
