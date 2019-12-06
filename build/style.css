@@ -1,91 +1,263 @@
 @media screen and (max-width:700px) {
-    .post-data {
-      float: none;
-      clear: both;
-      width: 90vw;
+    .footer-icons {
+      width: 0px;
+      display: none;
     }
     .hidden {
         display: none;
+    }
+    .mobile-card { 
+        width: 80%;
+    }
+    .list-group-item {
+        width: 100%;
+    }
+    .dashboard-mainboard {
+        max-width: 96%;
+    }
+    .dashboard-right-sidebar-spacer {
+        display: none;
+    }
+    .dashboard-right-sidebar {
+        position: relative;
+        width: auto;
+        width: 100%;
+    }
+    .dashboard-newuser-popup {
+        width: 100%;
+        height: 100%;
+    }
+    .dashboard-newuser-popup-selection {
+        min-width: 90%;
+    }
+    .profile-holder {
+        min-width: 90vw;
+    }
+    .profile-picture-holder {
+        min-width: 100vw;
+    }
+    .profile-password-confirm-popup {
+        width: 100%;
+        height: 100%;
     }
     .login-holder {
         padding-top: 0;
     }
   }
+
   @media screen and (min-width:700px) {
-    .post-data {
-      float: left;
-      width: 23%;
-      min-width: 300px;
+    .footer-icons {
+      display: block;
     }
     .hidden {
         display: block;
+    }
+    .mobile-card { 
+        width: auto;
+    }
+    .list-group-item {
+        width: auto;
+    }
+    .dashboard-mainboard {
+        max-width: auto;
+    }
+    .dashboard-right-sidebar-spacer {
+        display: block;
+    }
+    .dashboard-right-sidebar {
+        position: fixed;
+        width: 25vw;
+        right: 0px;
+    }
+    .dashboard-newuser-popup {
+        width: 50%;
+        height: 400px;
+    }
+    .dashboard-newuser-popup-selection {
+        min-width: 40%;
+    }
+    .profile-holder {
+        min-width: 400px;
+    }
+    .profile-picture-holder {
+        min-width: 200px;
+    }
+    .profile-password-confirm-popup {
+        width: 50%;
+        height: 300px;
     }
     .login-holder {
         padding-top: 15vh;
     }
   }
 
- 
-.footer {
+  /*disable horizontal scroll */
+html, body {
+    max-width: 100%;
+    min-height: 100vh;
+    position: relative;
+    margin: 0;
+    overflow-x: hidden;
+}
+.btn {
+    margin: 3px;
+}
+.form-control {
+    resize: none;
+}
+.jumbotron {
+    background-color: #1e2f42;
+    border: 3px solid #263d55;
+    box-shadow: 0px 0px 7px #000;
+}
+
+.popup-holder {
     position: fixed;
-    height: 10vh;
-    background-color: #262626;
-    bottom: 0;
-    color: white;
+    top: 0;
+    left: 0;
     width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    background-image: url('images/popup-background.png');
+    background-repeat: repeat;
+    z-index: 10;
+}
+
+.profile-picture {
+    border-radius: 50%;
+}
+
+ /* Footer stuff here */
+.footer {
+    position: absolute;
+    background-color: #263d55;
+    bottom: 0;
+    clear: both;
+    float: none;
+    color: white;
+    width: 100%;
+    height: 9em;
+    padding-left: 3vw;
+    padding-top: 2em;
 }
 .blank-div {
-    height: 11vh;
+    position: relative;
+    height: 10em;
+    width: 100vw;
+    clear: both;
+    float: none;
+}
+.footer-icon {
+    width: 5em;
+    height: 5em;
+    opacity: 0.4;
+    margin-right: 2em;
+    transition: 1s;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+}
+.footer-icon:hover {
+    opacity: 1;
+    transition: 1s;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+}
+
+/* Navbar stuff here*/
+.navbar {
+    border-bottom: 1px solid black;
+    z-index: 5;
+}
+.nav-profile-holder {
+    margin-right: 30px;
+}
+.nav-spacer {
+    height: 80px;
+    width: 100%;
+    position: relative;
     float: none;
     clear: both;
 }
-.post-data {
-   
-    height: 15rem;
-    float: left;
+.nav-profile-picture {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+/* Dashboard stuff here */
+.dashboard-right-sidebar {
+    margin-right: 10px;
+    padding-top: 10px;
+}
+.dashboard-mainboard {
     margin: 10px;
 }
-.breadcrumb {
-    width: 100vw;
-    margin-left: 0px;
 
+.dashboard-newuser-popup {
+    margin: auto;
+    position: absolute;
+    padding-top: 15px;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+.dashboard-newuser-popup-selection {
+    border: 1px solid #334961;
+    border-radius: 7px;
+    background-color: #263d55;
+    margin: 5px;
+    min-height: 100%;
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+.dashboard-newuser-popup-selection:hover {
+    background-color: #2e4966;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
 }
 
+/*login stuff here*/
 .login {
     height: 70vh;
     width: 100vw;
     margin-left: 0px;
 }
 .login-splash {
-    background-image: url('images/login.png');
+    background-image: url('images/login-splash.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 80%;
 }
-.card-center {
+.div-center {
     margin-left: auto;
     margin-right: auto;
     float: none; /* Added */
 }
-.fullLength {
-    width: 90%;
+
+/* profile stuff here */
+.profile-padding {
+    margin-top: 100px;
 }
-.btn-white {
-    background-color: #4582EC;
-    border: 1px solid white;
-    color: white;
+.profile-profile-picture {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
 }
-.btn-white:hover {
-    background-color: white;
-    color: #4582EC;
+.profile-holder {
+    padding-top: 15px;
 }
-.btn-white:active {
-    background-color: lightgray;
-    color: #4582EC;
+.profile-password-confirm-popup {
+    margin: auto;
+    position: absolute;
+    padding-top: 15px;
+    top: 0; left: 0; bottom: 0; right: 0;
 }
-.white-link {
-    color: white;
-}
-.white-link:hover {
-    color: white;
+
+/* 404 page starts here */
+.not-found-container {
+    margin-top: 100px;
 }

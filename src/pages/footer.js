@@ -24,9 +24,9 @@ class Footer extends React.Component {
                         </div>
 
                         <div className="col-5 text-right footer-icons">
-                            <img src="images/react.png" className="footer-icon" alt="React" />
-                            <img src="images/bootstrap.png" className="footer-icon" alt="Bootstrap" />
-                            <img src="images/firebase.png" className="footer-icon" alt="Firebase" />
+                            <img src="https://firebasestorage.googleapis.com/v0/b/saturn-d573e.appspot.com/o/static-images%2Freact.png?alt=media&token=eabf66ac-18c3-49cb-9e5f-4936db26bbf1" className="footer-icon" alt="React" />
+                            <img src="https://firebasestorage.googleapis.com/v0/b/saturn-d573e.appspot.com/o/static-images%2Fbootstrap.png?alt=media&token=7156b4ab-b404-4933-8fbd-54f9c0dc4695" className="footer-icon" alt="Bootstrap" />
+                            <img src="https://firebasestorage.googleapis.com/v0/b/saturn-d573e.appspot.com/o/static-images%2Ffirebase.png?alt=media&token=101a52af-96d5-4527-8cd0-745f8f5e87c3" className="footer-icon" alt="Firebase" />
                         </div>
 
                     </div>

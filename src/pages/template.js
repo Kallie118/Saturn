@@ -11,6 +11,7 @@ class Dashboard extends React.Component {
             loggedIn: null,
             loading: true,
             user: {},
+            profilePic: null,
             userData: {},
         }
     }
@@ -32,13 +33,23 @@ class Dashboard extends React.Component {
 
     updateUserData = () => {
         db.collection('users').doc(this.state.user.displayName).get().then(doc => {
-            if (doc.exists) {
                 this.setState({ userData: doc.data() });
-                this.setState({ loading: false })
-            } else {
-                alert('Error getting user data please reload.')
-            }
-        });
+                this.setState({ bio: this.state.userData.bio })
+                this.setState({ email: this.state.userData.email })
+        })
+        .then(_ => {
+            let storageRef = firebase.storage().ref();
+            storageRef.child('profile-pic/'+ this.state.userData.profile_picture).getDownloadURL().then((url) => {
+                this.setState({ profilePic: url})
+              }).catch((error) => {
+                alert(error.message);
+              });
+        }).then(_ => {
+            this.setState({ loading: false })
+        })
+        .catch(error => {
+            alert(error.message);
+        })
     }
 
 

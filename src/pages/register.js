@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from 'firebase';
 import { Redirect } from 'react-router-dom'
 import db from '../config/firebase';
+const storage = firebase.storage();
 
 class Register extends React.Component {
     constructor(props) {
@@ -53,6 +54,9 @@ class Register extends React.Component {
                         new_user: true,
                         email: this.state.email,
                         forums: 0,
+                        profile_picture: 'default-profile.png',
+                        bio: 'This is a default bio.',
+                        custom_name: this.state.username
                         
                     })
                         .then((docRef) => {
@@ -138,8 +142,6 @@ class Register extends React.Component {
                                 <label className="col-form-label" htmlFor="cpass">Confirm Password</label>
                                 <input type="password" onChange={this.handleCPassword} className="form-control" placeholder="Confirm Password" id="cpass" /> <br />
                                 <button type="button" className="btn btn-primary" onClick={() => { this.handleRegister() }}>Next</button> <br />
-
-
 
                             </div>
                         </div>

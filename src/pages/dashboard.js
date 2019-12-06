@@ -55,7 +55,7 @@ class Dashboard extends React.Component {
     }
 
     hidePopup = () => {
-        db.collection("users").doc(this.state.user.displayName).set({
+        db.collection("users").doc(this.state.user.displayName).update({
             new_user: false
         }).then(() => {
             this.updateUserData();
