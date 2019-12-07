@@ -15,6 +15,8 @@ class Dashboard extends React.Component {
             user: {},
             userData: {},
             reload: false,
+            findForum: false,
+            createForum: false,
         }
     }
 
@@ -65,6 +67,14 @@ class Dashboard extends React.Component {
         });
     }
 
+    handleFindForum = () => {
+        this.setState({ findForum: !this.state.findForum });
+    }
+
+    handleCreateForum = () => {
+        this.setState({ createForum: true });
+    }
+
 
 
     render() {
@@ -86,14 +96,34 @@ class Dashboard extends React.Component {
 
         const NEW_USER_POPUP = () => {
 
-            if (this.state.userData.new_user) {
+            if (this.state.createForum) {
+                return <Redirect to='/myforums' />
+            } else if (this.state.userData.new_user) {
+                if (this.state.findForum) {
+                    return (<div className="popup-holder">
+                    <div className="jumbotron dashboard-newuser-popup text-center">
+                        <h3>Welcome to Saturn!</h3>
+                      
+                        <hr />
+                        <div className="list-group mobile-card div-center">
+                                <a className="list-group-item list-group-item-action text-center disabled">
+                                    <b>Popular Forums:</b>
+                                </a>
+                                {POPULAR_DATA}
+                            </div>
+
+                            <button className="btn btn-link" onClick={ this.handleFindForum }>Nevermind.</button>
+                    </div>
+                </div>
+                )
+                }
                 return (<div className="popup-holder">
                     <div className="jumbotron dashboard-newuser-popup text-center">
                         <h3>Welcome to Saturn!</h3>
                       
                         <hr />
                         <div className="row">
-                            <div className="col dashboard-newuser-popup-selection">
+                            <div className="col dashboard-newuser-popup-selection" onClick={this.handleCreateForum}>
                                 <img src="images/create-forum.png" height="100px" alt="Create Forum" />
                                 <h5>Create a forum!</h5>
                                 <hr />
@@ -101,7 +131,7 @@ class Dashboard extends React.Component {
                                 <p>&nbsp; Create and lead your own custom forum! Invite your friends and grow your own community. </p>
                             </div>
 
-                            <div className="col dashboard-newuser-popup-selection">
+                            <div className="col dashboard-newuser-popup-selection" onClick={this.handleFindForum}>
                             <img src="images/join-forum.png" height="100px" alt="Join Forum" />
                                 <h5>Find a forum!</h5>
                                 <hr />
@@ -110,7 +140,7 @@ class Dashboard extends React.Component {
                             </div>
                         </div>
 
-                        <button onClick={ this.hidePopup }>Don't show me this.</button>
+                        <button className="btn btn-link" onClick={ this.hidePopup }>Don't show me this.</button>
 
                     </div>
                 </div>

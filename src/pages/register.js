@@ -41,7 +41,13 @@ class Register extends React.Component {
         } else if (this.state.username.match("^[A-Za-z0-9]+$") === null) {
             this.setState({ error: 'Your username can only contain letters and numbers.' });
         } else {
-            this.setState({ proceed: false });
+            db.collection('users').doc(this.state.username).get()
+            .then((doc) => {
+                if (doc.exists) {
+                    this.setState({ error: 'Sorry this username has already been taken.'});
+                } else {
+
+                    this.setState({ proceed: false });
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch((error) => {
             })
                 .then(() => {
@@ -57,7 +63,6 @@ class Register extends React.Component {
                         profile_picture: 'default-profile.png',
                         bio: 'This is a default bio.',
                         custom_name: this.state.username
-                        
                     })
                         .then((docRef) => {
                             //Assuming it was written to database we will begin to start.
@@ -86,6 +91,10 @@ class Register extends React.Component {
                     this.setState({ error: error.message });
                     console.log(error.code, error.message);
                 });
+                    
+                }
+            });
+            
         }
 
 

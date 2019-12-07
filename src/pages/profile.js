@@ -286,7 +286,6 @@ class Profile extends React.Component {
             return null;
         }
     }
-
 }
 
 export default Profile;
