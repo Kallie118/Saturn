@@ -14,8 +14,8 @@ class Footer extends React.Component {
         return (
             <div>
                 <div className="blank-div">
-
                 </div>
+                
                 <div className="text-center footer">
                     <div className="row">
                         <div className="col-5">

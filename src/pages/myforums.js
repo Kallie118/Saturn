@@ -29,6 +29,9 @@ class MyForums extends React.Component {
             ownedForums: [],
             editForum: false,
 
+            canEdit: false,
+            forumData: {},
+
 
         }
     }
@@ -208,53 +211,85 @@ class MyForums extends React.Component {
         }
     }
 
+    checkUserForums = () => {
+        db.collection('users').doc(this.state.user.displayName).collection('owned_forums').get().then(data => {
+            this.setState({ ownedForums: data.docs });
+        })
+        .then(_ => {
+            this.state.ownedForums.map((forumList, index) => {
+                if (forumList.id === this.state.editForum) {
+                    this.setState({ canEdit: true });
+                } else {
+                    this.setState({ canEdit: false });
+                }
+            })
+        })
+        .then(_ => {
+            db.collection('forums').doc(this.state.editForum).get().then(doc => {
+                this.setState({ forumData: doc.data() })
+            })
+        })
+        .then(_ => {
+            this.setState({ forumTitle: this.state.forumData.title })
+            this.setState({ forumSlogan: this.state.forumData.slogan })
+            this.setState({ shortName: this.state.forumData.shortName })
+        })
+    }
 
-    editForumPopup = (forum) => {
+    editForumPopup = () => {
         if (this.state.editForum) {
-            return (
-                <div className="popup-holder">
-                    <div className="jumbotron my-forums-forum-edit-popup">
-                        <h3>{this.state.editForum}</h3>
+            this.checkUserForums()
+           
+           if (this.state.canEdit === true) {
 
-                        <div>
-                                <label className="col-form-label" htmlFor="forum-title"><span className="text-danger">*</span>Forum Title</label>
-                                <small><p className="text-muted" htmlFor="forum-title">This title will be displayed on your forum, can contain spaces and up to 40 characters. </p></small>
-                                <input type="text" placeholder="Hot Rods & Memes" className="form-control" onChange={this.handleForumTitle} value={this.state.forumTitle} id="forum-title" />
 
-                                <br />
+                return (
+                    <div className="popup-holder">
+                        <div className="jumbotron my-forums-forum-edit-popup">
+                            <h3>{this.state.editForum}</h3>
 
-                                <label className="col-form-label" htmlFor="forum-short-name"><span className="text-danger">*</span>Forum Slogan</label>
-                                <small><p className="text-muted" htmlFor="forum-short-name">This will display under your title, can be up to 80 characters.</p></small>
-                                <input type="text" className="form-control" onChange={this.handleForumSlogan} value={this.state.forumSlogan} placeholder="We have cars, we have memes, what more do you need?" id="forum-short-name" />
+                            <div>
+                                    <label className="col-form-label" htmlFor="forum-title"><span className="text-danger">*</span>Forum Title</label>
+                                    <small><p className="text-muted" htmlFor="forum-title">This title will be displayed on your forum, can contain spaces and up to 40 characters. </p></small>
+                                    <input type="text" placeholder="Hot Rods & Memes" className="form-control" onChange={this.handleForumTitle} value={this.state.forumTitle} id="forum-title" />
 
-                                <br />
+                                    <br />
 
-                                <label className="col-form-label" htmlFor="forum-logo"><span className="text-danger"></span>Forum Logo</label>
-                                <small><p className="text-muted" htmlFor="forum-logo">This is the logo it will display on the top left of your page.</p></small>
-                                <input type="file" name="forum-logo" className="form-control-file" onChange={this.handleForumLogo} accept="image/*" aria-describedby="fileHelp" id="forum-logo" />
+                                    <label className="col-form-label" htmlFor="forum-short-name"><span className="text-danger">*</span>Forum Slogan</label>
+                                    <small><p className="text-muted" htmlFor="forum-short-name">This will display under your title, can be up to 80 characters.</p></small>
+                                    <input type="text" className="form-control" onChange={this.handleForumSlogan} value={this.state.forumSlogan} placeholder="We have cars, we have memes, what more do you need?" id="forum-short-name" />
 
-                                <br />
+                                    <br />
 
-                                <label className="col-form-label" htmlFor="forum-background"><span className="text-danger"></span>Forum Background</label>
-                                <small><p className="text-muted" htmlFor="forum-background">This if your forums background image</p></small>
-                                <input type="file" name="forum-background" className="form-control-file" accept="image/*" aria-describedby="fileHelp" id="forum-background" onChange={this.handleForumBackground} />
+                                    <label className="col-form-label" htmlFor="forum-logo"><span className="text-danger"></span>Forum Logo</label>
+                                    <small><p className="text-muted" htmlFor="forum-logo">This is the logo it will display on the top left of your page.</p></small>
+                                    <input type="file" name="forum-logo" className="form-control-file" onChange={this.handleForumLogo} accept="image/*" aria-describedby="fileHelp" id="forum-logo" />
 
-                                <br />
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <p className="text-danger">* = required</p>
+                                    <br />
+
+                                    <label className="col-form-label" htmlFor="forum-background"><span className="text-danger"></span>Forum Background</label>
+                                    <small><p className="text-muted" htmlFor="forum-background">This if your forums background image</p></small>
+                                    <input type="file" name="forum-background" className="form-control-file" accept="image/*" aria-describedby="fileHelp" id="forum-background" onChange={this.handleForumBackground} />
+
+                                    <br />
                                 </div>
-                                <div className="col text-right">
-                                    
-                                    <button className="btn btn-primary" onClick={this.createForum}>Edit</button>
-                                    <button className="btn btn-secondary" onClick={this.createForum}>Cancel</button>
-                                    
+                                <div className="row">
+                                    <div className="col">
+                                        <p className="text-danger">* = required</p>
+                                    </div>
+                                    <div className="col text-right">
+                                        
+                                        <button className="btn btn-primary" onClick={this.createForum}>Edit</button>
+                                        <button className="btn btn-secondary" onClick={this.createForum}>Cancel</button>
+                                        
+                                    </div>
                                 </div>
-                            </div>
+                        </div>
                     </div>
-                </div>
-            )
+                )
+            } else {
+                return null;
+            }
         }
     }
 
