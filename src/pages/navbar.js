@@ -8,6 +8,7 @@ import {
 import Register from './register';
 import Home from './home';
 import Dashboard from './dashboard';
+import Forum from './forum';
 import Profile from './profile';
 import MyForums from './myforums';
 import firebase from 'firebase';
@@ -116,6 +117,7 @@ class Navbar extends React.Component {
                     {/* A <Switch> looks through its children <Route>s and
                     renders the first one that matches the current URL. */}
                     <Switch>
+                        <Route path="/forum/:forumName" component={Forum} />
                         <Route path="/profile/:externalProfile" component={Profile} />
                         <Route path="/profile" component={Profile} />
                         <Route path="/myforums" component={MyForums} />

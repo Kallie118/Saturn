@@ -31,6 +31,11 @@ class MyForums extends React.Component {
 
             canEdit: false,
             forumData: {},
+            stopGet: false,
+            stopGet2: false,
+
+            oldLogoUrl: '',
+            oldBackgroundUrl: '',
 
 
         }
@@ -43,12 +48,17 @@ class MyForums extends React.Component {
                 this.setState({ user: firebase.auth().currentUser });
 
                 this.updateUserData();
+                this.getUserForums();
+                
 
             } else {
                 this.setState({ loggedIn: false });
                 this.setState({ loading: false })
             }
-        });
+        })
+            
+
+        
     }
 
     updateUserData = () => {
@@ -88,6 +98,10 @@ class MyForums extends React.Component {
         this.setState({ editForum: forum})
     }
 
+    closeEditPopup = () => {
+        this.setState({ editForum: false})
+    }
+
     redAlert() {
         if (this.state.error !== '') {
             return (
@@ -109,7 +123,6 @@ class MyForums extends React.Component {
     }
 
     createForum = () => {
-
         if (this.state.shortName === '') {
             this.setState({ error: 'Short name is required.' })
         } else if (this.state.forumTitle.length === '') {
@@ -179,7 +192,7 @@ class MyForums extends React.Component {
                                         });
                                 } else {
                                     db.collection("forums").doc(this.state.shortName).update({
-                                        background: 'forums/default-logo.png'
+                                        logo: 'forums/default-logo.png'
                                     });
                                 }
                             })
@@ -211,12 +224,86 @@ class MyForums extends React.Component {
         }
     }
 
+    editForum = () => {
+
+        if (this.state.forumTitle.length === '') {
+            this.setState({ error: 'Forum title is required.' })
+        } else if (this.state.forumSlogan === '') {
+            this.setState({ error: 'Forum slogan is required.' })
+        } else if (this.state.forumTitle.length < 3) {
+            this.setState({ error: 'Forum title must be atleast 3 characters.' });
+        } else if (this.state.forumTitle.length > 40) {
+            this.setState({ error: 'Forum title can not be more then 40 characters.' });
+        } else if (this.state.forumSlogan.length < 3) {
+            this.setState({ error: 'Forum slogan must be atleast 3 characters.' });
+        } else if (this.state.forumSlogan.length > 80) {
+            this.setState({ error: 'Forum slogan can not be more then 80 characters.' });
+        } else {
+                db.collection("forums").doc(this.state.shortName).update({
+                    title: this.state.forumTitle,
+                    slogan: this.state.forumSlogan,
+                })
+                    .then(_ => {
+                        if (this.state.backgroundChange) {
+                            let file = this.state.forumBackground;
+                            let storageRef = firebase.storage().ref('forums/' + this.state.shortName + '/backgrounds/' + this.uuidv4());
+                            storageRef.put(file).then((snapshot) => {
+
+                                db.collection("forums").doc(this.state.shortName).update({
+                                    background: snapshot.metadata.name
+                                });
+                            })
+                                .catch((error) => {
+                                    console.log(error)
+                                });
+                        } else {
+                            db.collection("forums").doc(this.state.shortName).update({
+                                background: this.state.oldBackgroundUrl
+                            });
+                        }
+
+                    })
+                    .then(_ => {
+                        if (this.state.logoChange) {
+                            let file = this.state.forumLogo;
+                            let storageRef = firebase.storage().ref('forums/' + this.state.shortName + '/logos/' + this.uuidv4());
+                            storageRef.put(file).then((snapshot) => {
+
+                                db.collection("forums").doc(this.state.shortName).update({
+                                    logo: snapshot.metadata.name
+                                });
+                            })
+                                .catch((error) => {
+                                    console.log(error)
+                                });
+                        } else {
+                            db.collection("forums").doc(this.state.shortName).update({
+                                logo: this.state.oldLogoUrl
+                            });
+                        }
+                    })
+                    .then(_ => {
+                        this.setState({ editForum: false})
+                        this.setState({ stopGet: false})
+                        this.setState({ stopGet2: false})
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            }
+        }
+
+
     checkUserForums = () => {
+       if (!this.state.stopGet2) {
         db.collection('users').doc(this.state.user.displayName).collection('owned_forums').get().then(data => {
             this.setState({ ownedForums: data.docs });
+           
         })
         .then(_ => {
             this.state.ownedForums.map((forumList, index) => {
+             
                 if (forumList.id === this.state.editForum) {
                     this.setState({ canEdit: true });
                 } else {
@@ -226,14 +313,28 @@ class MyForums extends React.Component {
         })
         .then(_ => {
             db.collection('forums').doc(this.state.editForum).get().then(doc => {
+                
                 this.setState({ forumData: doc.data() })
+                this.setState({ forumTitle: doc.data().title})
+                this.setState({ forumSlogan: doc.data().slogan})
+                this.setState({ shortName: doc.data().shortName})
+                this.setState({ oldBackgroundUrl: doc.data().background})
+                this.setState({ oldLogoUrl: doc.data().logo})
             })
         })
         .then(_ => {
-            this.setState({ forumTitle: this.state.forumData.title })
-            this.setState({ forumSlogan: this.state.forumData.slogan })
-            this.setState({ shortName: this.state.forumData.shortName })
+            this.setState({ stopGet2: true })
         })
+        }
+    }
+
+    getUserForums = () => {
+        if (!this.state.stopGet) {
+            db.collection('users').doc(this.state.user.displayName).collection('owned_forums').get().then(data => {
+                this.setState({ ownedForums: data.docs });
+                this.setState({ stopGet: true });
+            });
+        }
     }
 
     editForumPopup = () => {
@@ -241,7 +342,6 @@ class MyForums extends React.Component {
             this.checkUserForums()
            
            if (this.state.canEdit === true) {
-
 
                 return (
                     <div className="popup-holder">
@@ -279,8 +379,8 @@ class MyForums extends React.Component {
                                     </div>
                                     <div className="col text-right">
                                         
-                                        <button className="btn btn-primary" onClick={this.createForum}>Edit</button>
-                                        <button className="btn btn-secondary" onClick={this.createForum}>Cancel</button>
+                                        <button className="btn btn-primary" onClick={this.editForum}>Edit</button>
+                                        <button className="btn btn-secondary" onClick={this.closeEditPopup}>Cancel</button>
                                         
                                     </div>
                                 </div>
@@ -294,9 +394,22 @@ class MyForums extends React.Component {
     }
 
         render() {
+            const FORUM_DATA = this.state.ownedForums.map((data, index) => {
+                
+                return (
+                    <tr class="table-secondary" key={index}>
+                        <td>{data.id}</td>
+                        <td className="text-right"> 
+                            <img src="images/config.png" onClick={() => {this.handleEditForum(data.id)}} className="my-forums-config-icon" height="20px" />     
+                        </td>
+                    </tr>
+                )
+            })
 
             const FORUM_MANAGER = () => {
+                
                 if (this.state.userData.forums === 0) {
+                    
                     return (
                         <div>
                             <div className="col text-center">
@@ -348,22 +461,6 @@ class MyForums extends React.Component {
 
                     )
                 } else {
-                    db.collection('users').doc(this.state.userData.custom_name).collection('owned_forums').get().then(data => {
-                        this.setState({ ownedForums: data.docs });
-                    });
-                    
-
-                    const FORUM_DATA = this.state.ownedForums.map((data, index) => {
-                        return (
-                            <tr class="table-secondary" key={index}>
-                                <td>{data.id}</td>
-                                <td className="text-right"> 
-                                    <img src="images/config.png" onClick={() => {this.handleEditForum(data.id)}} className="my-forums-config-icon" height="20px" />     
-                                </td>
-                            </tr>
-                        )
-                    })
-
 
                     return (
                         <div>

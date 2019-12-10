@@ -89,7 +89,7 @@ class Dashboard extends React.Component {
         const POPULAR_DATA = this.state.popularData.map((data, index) => {
             return (
                 <a key={index} className="list-group-item list-group-item-action">
-                    {data.id}
+                    <a href={'forum/' + data.id} >{data.id}</a>
                 </a>
             )
         })
@@ -159,22 +159,117 @@ class Dashboard extends React.Component {
                     <div className="row">
                         <div className="col dashboard-mainboard">
 
+                        <div className="jumbotron forum-post"  >
+                            <div className="row">
+                                <div className="col">
+                                    <h4>What is the deal with airplane food</h4>
+                                </div>
+                                <div className="col text-right">
+                                    <a href={'../profile/Caleb'} >Caleb</a>
+                                </div>
+                            </div>
 
-                            <div className="jumbotron div-center">
-                                test <br /> <br /> <br /> test
-                           </div>
-                            <div className="jumbotron div-center">
-                                test <br /> <br /> <br /> test
-                           </div>
-                            <div className="jumbotron div-center">
-                                test <br /> <br /> <br /> test
-                           </div>
-                            <div className="jumbotron div-center">
-                                test <br /> <br /> <br /> test
-                           </div>
-                            <div className="jumbotron div-center">
-                                test <br /> <br /> <br /> test
-                           </div>
+                            <hr />
+
+                            <div className="row">
+                                <div className="col">
+                                    <textarea class="form-control forum-post-content" rows="10" disabled value='that is fire'></textarea>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div className="row">
+                                
+                                <img src="../images/up-vote.png" className="forum-like-button" /> 
+                                10
+                                <img src="../images/down-vote.png" className="forum-like-button" />
+                            </div>
+                        </div>
+
+                        <div className="jumbotron forum-post"  >
+                            <div className="row">
+                                <div className="col">
+                                    <h4>test</h4>
+                                </div>
+                                <div className="col text-right">
+                                    <a href={'../profile/Caleb'} >GarretH</a>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div className="row">
+                                <div className="col">
+                                    <textarea class="form-control forum-post-content" rows="10" disabled value='test 123 test test'></textarea>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div className="row">
+                                
+                                <img src="../images/up-vote.png" className="forum-like-button" /> 
+                                3
+                                <img src="../images/down-vote.png" className="forum-like-button" />
+                            </div>
+                        </div>
+
+                        <div className="jumbotron forum-post"  >
+                            <div className="row">
+                                <div className="col">
+                                    <h4>This is the start</h4>
+                                </div>
+                                <div className="col text-right">
+                                    <a href={'../profile/Caleb'} >DomDotCom</a>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div className="row">
+                                <div className="col">
+                                    <textarea class="form-control forum-post-content" rows="10" disabled value='The start of something new'></textarea>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div className="row">
+                                
+                                <img src="../images/up-vote.png" className="forum-like-button" /> 
+                                0
+                                <img src="../images/down-vote.png" className="forum-like-button" />
+                            </div>
+                        </div>
+
+                        <div className="jumbotron forum-post"  >
+                            <div className="row">
+                                <div className="col">
+                                    <h4>ABC123</h4>
+                                </div>
+                                <div className="col text-right">
+                                    <a href={'../profile/Caleb'} >newaccount12</a>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div className="row">
+                                <div className="col">
+                                    <textarea class="form-control forum-post-content" rows="10" disabled value='We are testing somethign new'></textarea>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div className="row">
+                                
+                                <img src="../images/up-vote.png" className="forum-like-button" /> 
+                                4
+                                <img src="../images/down-vote.png" className="forum-like-button" />
+                            </div>
+                        </div>
                         </div>
 
 
