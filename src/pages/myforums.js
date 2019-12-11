@@ -398,7 +398,7 @@ class MyForums extends React.Component {
                 
                 return (
                     <tr class="table-secondary" key={index}>
-                        <td>{data.id}</td>
+                        <td><a href={"/forum/"+ data.id}>{data.id}</a></td>
                         <td className="text-right"> 
                             <img src="images/config.png" onClick={() => {this.handleEditForum(data.id)}} className="my-forums-config-icon" height="20px" />     
                         </td>
