@@ -193,7 +193,7 @@ class Dashboard extends React.Component {
                                     <h4>test</h4>
                                 </div>
                                 <div className="col text-right">
-                                    <a href={'../profile/Caleb'} >GarretH</a>
+                                    <a href={'../profile/GarretH'} >GarretH</a>
                                 </div>
                             </div>
 
@@ -221,7 +221,7 @@ class Dashboard extends React.Component {
                                     <h4>This is the start</h4>
                                 </div>
                                 <div className="col text-right">
-                                    <a href={'../profile/Caleb'} >DomDotCom</a>
+                                    <a href={'../profile/DomDotCom'} >DomDotCom</a>
                                 </div>
                             </div>
 
@@ -249,7 +249,7 @@ class Dashboard extends React.Component {
                                     <h4>ABC123</h4>
                                 </div>
                                 <div className="col text-right">
-                                    <a href={'../profile/Caleb'} >newaccount12</a>
+                                    <a href={'../profile/Caleb'} >Caleb</a>
                                 </div>
                             </div>
 

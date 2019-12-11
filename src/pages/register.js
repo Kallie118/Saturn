@@ -38,6 +38,14 @@ class Register extends React.Component {
             this.setState({ error: 'Your passwords did not match.' });
         } else if (this.state.username.length > 15) {
             this.setState({ error: 'Your username can not be longer then 15 characters.' });
+        } else if (this.state.username.length <= 0) {
+            this.setState({ error: 'Username is required.' });
+        } else if (this.state.email.length <= 0) {
+            this.setState({ error: 'Email is required.' });
+        } else if (this.state.password.length <= 0) {
+            this.setState({ error: 'Password is required' });
+        } else if (this.state.cpassword.length <= 0) {
+            this.setState({ error: 'Confirm password is required.' });
         } else if (this.state.username.match("^[A-Za-z0-9]+$") === null) {
             this.setState({ error: 'Your username can only contain letters and numbers.' });
         } else {
@@ -46,7 +54,6 @@ class Register extends React.Component {
                 if (doc.exists) {
                     this.setState({ error: 'Sorry this username has already been taken.'});
                 } else {
-
                     this.setState({ proceed: false });
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch((error) => {
             })
