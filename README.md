@@ -1,4 +1,4 @@
-![Image depecting an intro of the project](https://raw.githubusercontent.com/Kallie118/Github-Assets/master/Saturn.png)
+![Image depecting an intro of the project](https://raw.githubusercontent.com/Kallie118/Github-Assets/master/Saturn-logo.png)
 
 # Libraries, Languages, and Frameworks used:
 * Bootstrap
