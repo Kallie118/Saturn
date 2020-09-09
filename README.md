@@ -1,3 +1,6 @@
+![Image depecting an intro of the project](https://raw.githubusercontent.com/Kallie118/Github-Assets/master/Saturn.png)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
