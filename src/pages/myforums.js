@@ -28,6 +28,7 @@ class MyForums extends React.Component {
 
             ownedForums: [],
             editForum: false,
+            newForum: false,
 
             canEdit: false,
             forumData: {},
@@ -99,7 +100,7 @@ class MyForums extends React.Component {
     }
 
     closeEditPopup = () => {
-        this.setState({ editForum: false})
+        this.setState({ forumTitle: '', forumSlogan: '', editForum: false, stopGet: false, stopGet2: false})
     }
 
     redAlert() {
@@ -159,8 +160,11 @@ class MyForums extends React.Component {
                         })
                             .then(_ => {
                                 if (this.state.backgroundChange) {
+
                                     let file = this.state.forumBackground;
                                     let storageRef = firebase.storage().ref('forums/' + this.state.shortName + '/backgrounds/' + this.uuidv4());
+
+                                  
                                     storageRef.put(file).then((snapshot) => {
 
                                         db.collection("forums").doc(this.state.shortName).update({
@@ -168,6 +172,7 @@ class MyForums extends React.Component {
                                         });
                                     })
                                         .catch((error) => {
+                                            alert(error)
                                             console.log(error)
                                         });
                                 } else {
@@ -185,10 +190,19 @@ class MyForums extends React.Component {
 
                                         db.collection("forums").doc(this.state.shortName).update({
                                             logo: snapshot.metadata.name
-                                        });
-                                    })
+                                        })
+                                        // .then(_ => {
+                                        //     alert('Datbase update completed')
+                                        // })
                                         .catch((error) => {
-                                            console.log(error)
+                                            alert(error);
+                                        })
+                                    })
+                                    // .then(_ => {
+                                    //     alert('file uploaded successfully')
+                                    // })
+                                        .catch((error) => {
+                                            alert(error)
                                         });
                                 } else {
                                     db.collection("forums").doc(this.state.shortName).update({
@@ -208,6 +222,9 @@ class MyForums extends React.Component {
                                     })
                                     .then(_ => {
                                         this.updateUserData();
+                                        this.updateUserForums();
+                                       // alert('tasks compeleted successfully')
+                                       // window.location.reload(false);
                                     })
                                     .catch((error) => {
                                         console.log(error.message);
@@ -215,6 +232,7 @@ class MyForums extends React.Component {
                             })
                             .then(_ => {
                                 this.updateUserData();
+                                this.updateUserForums();
                             })
                             .catch((error) => {
                                 console.log(error);
@@ -283,9 +301,7 @@ class MyForums extends React.Component {
                         }
                     })
                     .then(_ => {
-                        this.setState({ editForum: false})
-                        this.setState({ stopGet: false})
-                        this.setState({ stopGet2: false})
+                        this.setState({ forumTitle: '', forumSlogan: '', editForum: false, stopGet: false, stopget2: false})
 
                     })
                     .catch((error) => {
@@ -294,6 +310,11 @@ class MyForums extends React.Component {
             }
         }
 
+    updateUserForums = () => {
+        db.collection('users').doc(this.state.user.displayName).collection('owned_forums').get().then(data => {
+            this.setState({ ownedForums: data.docs });
+        })
+    }
 
     checkUserForums = () => {
        if (!this.state.stopGet2) {
@@ -306,14 +327,14 @@ class MyForums extends React.Component {
              
                 if (forumList.id === this.state.editForum) {
                     this.setState({ canEdit: true });
-                } else {
+                } else if (this.state.editForum === false) {
                     this.setState({ canEdit: false });
                 }
             })
         })
         .then(_ => {
-            db.collection('forums').doc(this.state.editForum).get().then(doc => {
-                
+
+            db.collection('forums').doc(this.state.editForum).get().then(doc => {       
                 this.setState({ forumData: doc.data() })
                 this.setState({ forumTitle: doc.data().title})
                 this.setState({ forumSlogan: doc.data().slogan})
@@ -330,10 +351,16 @@ class MyForums extends React.Component {
 
     getUserForums = () => {
         if (!this.state.stopGet) {
-            db.collection('users').doc(this.state.user.displayName).collection('owned_forums').get().then(data => {
-                this.setState({ ownedForums: data.docs });
-                this.setState({ stopGet: true });
-            });
+            if(!this.state.newForum) {
+                db.collection('users').doc(this.state.user.displayName).collection('owned_forums').get().then(data => {
+                    this.setState({ ownedForums: data.docs });
+                    this.setState({ stopGet: true });
+                });
+            } else {
+                this.setState({ newForum: false })
+                this.getUserForums();
+            }
+            
         }
     }
 
@@ -397,7 +424,7 @@ class MyForums extends React.Component {
             const FORUM_DATA = this.state.ownedForums.map((data, index) => {
                 
                 return (
-                    <tr class="table-secondary" key={index}>
+                    <tr className="table-secondary" key={index}>
                         <td><a href={"/forum/"+ data.id}>{data.id}</a></td>
                         <td className="text-right"> 
                             <img src="images/config.png" onClick={() => {this.handleEditForum(data.id)}} className="my-forums-config-icon" height="20px" />     
@@ -461,16 +488,18 @@ class MyForums extends React.Component {
 
                     )
                 } else {
-
+                    
                     return (
                         <div>
                             {this.editForumPopup()}
-                            <table class="table table-hover">
-                                <tr class="table-info">
-                                    <td>Name</td>
-                                    <td className="text-right">Settings</td>
-                                </tr>
-                                {FORUM_DATA}
+                            <table className="table table-hover">
+                                <tbody>
+                                    <tr className="table-info">
+                                        <td>Name</td>
+                                        <td className="text-right">Settings</td>
+                                    </tr>
+                                    {FORUM_DATA}
+                                </tbody>
                             </table>
                         </div>
                     )

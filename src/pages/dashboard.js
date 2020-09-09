@@ -193,7 +193,7 @@ class Dashboard extends React.Component {
                                     <h4>test</h4>
                                 </div>
                                 <div className="col text-right">
-                                    <a href={'../profile/GarretH'} >GarretH</a>
+                                    <a href={'../profile/GarrettH'} >GarrettH</a>
                                 </div>
                             </div>
 

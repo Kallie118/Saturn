@@ -100,11 +100,11 @@ class Navbar extends React.Component {
 
                                 <ul className="navbar-nav ml-auto nav-profile-holder">
                                     <li className="nav-item dropdown show">
-                                        <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-                                            <img src={this.state.profilePic} alt="Profile Image" className="nav-profile-picture"  /> {this.state.userData.custom_name}</a>
+                                        <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="/s#" role="button">
+                                            <img src={this.state.profilePic} alt="Profile Icon" className="nav-profile-picture"  /> {this.state.userData.custom_name}</a>
                                         <div className="dropdown-menu " x-placement="bottom-start">
                                             <Link to="/profile" className="dropdown-item">Profile</Link>
-                                            <a className="dropdown-item" onClick={() => { this.handleLogout() }}>Logout</a>
+                                            <a className="dropdown-item" href="/#" onClick={() => { this.handleLogout() }}>Logout</a>
                                         </div>
                                     </li>
                                 </ul>
